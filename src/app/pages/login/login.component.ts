@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -8,20 +8,19 @@ import { FormGroup } from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
   form: FormGroup;
-  constructor() {}
-  products = [
-    {
-      id: '1000',
-      code: 'f230fh0g3',
-      name: 'Bamboo Watch',
-      description: 'Product Description',
-      image: 'bamboo-watch.jpg',
-      price: 65,
-      category: 'Accessories',
-      quantity: 24,
-      inventoryStatus: 'INSTOCK',
-      rating: 5,
-    },
-  ];
-  ngOnInit() {}
+  constructor(private fb: FormBuilder) {}
+  ngOnInit() {
+    this.createForm();
+  }
+
+  createForm() {
+    this.form = this.fb.group({
+      email: [, [Validators.required, Validators.email]],
+      password: [, [Validators.required]],
+    });
+  }
+
+  save() {
+    console.log(this.form.getRawValue());
+  }
 }

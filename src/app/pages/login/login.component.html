@@ -3,52 +3,76 @@
     <div class="wrapper">
       <div class="container">
         <div class="banner-welcome">
-          <span class="banner-title"
-            >ClinicPaw
-            <!-- <img src="../../../assets/img/paw.png" alt="" width="20px" /> -->
-          </span>
+          <span class="banner-title">ClinicPaw </span>
         </div>
         <div class="box-login">
           <div class="form">
-            <form action="">
-              <div style="margin: 30px 0; text-align: center">
-                <h2 style="font-weight: 500; color: #dd8432">Iniciar sesión</h2>
+            <form action="" [formGroup]="form">
+              <div class="mg-20 txt-center">
+                <h2 class="fw-500 bgr-label" style="height: 15px">
+                  Iniciar sesión
+                </h2>
               </div>
-              <div class="flex flex-column gap-2" style="margin: 30px 0">
-                <label for="username" style="font-weight: 500; color: #dd8432"
-                  >Usuario</label
-                >
+              <div class="flex flex-column gap-2 mg-20">
+                <label for="email" class="fw-500 bgr-label">Usuario</label>
                 <span class="p-input-icon-left">
                   <i class="pi pi-user"></i>
                   <input
-                    style="width: 100%"
+                    class="w-100"
                     pInputText
-                    id="username"
-                    aria-describedby="username-help"
+                    id="email"
+                    aria-describedby="email-help"
+                    formControlName="email"
                   />
+                  <span
+                    id="password-help"
+                    class="invalid"
+                    *ngIf="
+                      (form.controls['email'].getError('required') ||
+                        form.controls['email'].getError('email')) &&
+                      form.controls['email'].touched
+                    "
+                    >Debe ingresar un email válido.</span
+                  >
                 </span>
               </div>
-              <div class="flex flex-column gap-2" style="margin: 30px 0">
-                <label for="username" style="font-weight: 500; color: #dd8432"
+              <div class="flex flex-column gap-2 mg-20">
+                <label for="password" class="fw-500 bgr-label"
                   >Contraseña</label
                 >
                 <span class="p-input-icon-left">
                   <i class="pi pi-lock"></i>
                   <input
-                    style="width: 100%"
+                    class="w-100"
                     pInputText
-                    id="username"
-                    aria-describedby="username-help"
+                    id="password"
+                    aria-describedby="password-help"
+                    type="password"
+                    formControlName="password"
                   />
                 </span>
-                <!-- <small id="username-help"
-                    >Enter your username to reset your password.</small
-                  > -->
+                <small
+                  class="invalid"
+                  id="password-help"
+                  *ngIf="
+                    form.controls['password'].getError('required') &&
+                    form.controls['password'].touched
+                  "
+                  >Debe ingresar una contraseña.</small
+                >
               </div>
-              <span style="margin: 30px 0; font-weight: 300"
+              <span class="mg-20 fw-300" style="font-size: 14px"
                 >¿Has olvidado tu contraseña?
-                <a style="color: #dd8432">Restablecer aquí.</a>
+                <a class="bgr-label">Restablecer aquí.</a>
               </span>
+              <div class="txt-end" style="margin-top: 5px">
+                <p-button
+                  label="Ingresar"
+                  styleClass="p-button-outlined p-button-warning"
+                  (onClick)="save()"
+                  [disabled]="form.invalid"
+                ></p-button>
+              </div>
               <!-- <p-button label="Submit"></p-button> -->
             </form>
           </div>
